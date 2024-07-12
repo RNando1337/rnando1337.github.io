@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifa'i Rejal Maynando - Personal Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            color: #333;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        header nav {
+            margin-top: 20px;
+        }
+
+        header nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 400;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #ff6347;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+
+        .content h2 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 50px 0 20px;
+        }
+
+        .content p, .content ul {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+
+        .content ul {
+            padding-left: 20px;
+        }
+
+        .content ul li {
+            margin: 10px 0;
+        }
+
+        footer {
+            background-color: #fff;
+            color: #333;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .social-media a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .social-media a:hover {
+            color: #ff6347;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            header nav a {
+                font-size: 1em;
+            }
+
+            .content h2 {
+                font-size: 2em;
+            }
+
+            .content p, .content ul {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Rifa'i Rejal Maynando</h1>
+        <nav>
+            <a href="#about">Tentang</a>
+            <a href="#experience">Pengalaman</a>
+            <a href="#education">Pendidikan</a>
+            <a href="#awards">Penghargaan</a>
+            <a href="#contact">Kontak</a>
+        </nav>
+    </header>
+
+    <div class="content" id="about">
+        <h2>Tentang Saya</h2>
+        <p>Saya adalah seorang penetration tester dengan pengalaman dalam pengujian keamanan aplikasi web dan jaringan. Selain itu, saya juga memiliki minat besar dalam pengembangan web dan teknologi terkini.</p>
+    </div>
+
+    <div class="content" id="experience">
+        <h2>Pengalaman</h2>
+        <div>
+            <h3>Laravel Developer - PT. Dinustek - Purwawaktu</h3>
+            <p><strong>Mar 2022 - Saat ini</strong> | Semarang, Jawa Tengah, Indonesia</p>
+            <ul>
+                <li>Mengembangkan aplikasi web "Regina" untuk perusahaan outsourcing menggunakan Laravel dan Vue.js</li>
+                <li>Berkontribusi dalam pengembangan aplikasi web "Digitepp" untuk membantu peninjau etika dalam proses penelitian</li>
+                <li>Mengembangkan aplikasi web "Sikudim" untuk sistem keuangan universitas</li>
+                <li>Mengembangkan Learning Management System untuk Pemkab Cilacap</li>
+                <li>Membuat boilerplate untuk pengembangan aplikasi web yang efisien</li>
+                <li>Mengembangkan SOP untuk Security Assessment yang mengurangi bug keamanan sebesar 70%</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content" id="education">
+        <h2>Pendidikan</h2>
+        <div>
+            <h3>Universitas Dian Nuswantoro</h3>
+            <p><strong>Bachelor's degree, Teknologi Informasi</strong> | Sep 2021 - Nov 2023 | IPK: 3.80</p>
+            <p>Keahlian: Pengembangan Database, Pemrograman Berorientasi Objek (OOP), Pengembangan Software</p>
+        </div>
+        <div>
+            <h3>Universitas Dian Nuswantoro</h3>
+            <p><strong>Associate's degree, Teknologi Informasi</strong> | 2018 - 2021 | IPK: 3.83</p>
+            <p>Keahlian: Pengembangan Database, Pemrograman Berorientasi Objek (OOP), Pengembangan Software</p>
+        </div>
+        <div>
+            <h3>SMA Negeri 1 Blora</h3>
+            <p><strong>IPS</strong> | 2015 - 2018</p>
+        </div>
+    </div>
+
+    <div class="content" id="awards">
+        <h2>Gelar Kehormatan dan Penghargaan</h2>
+        <div>
+            <h3>Hall of Fame Web Server Security Apple</h3>
+            <p><strong>Sep 2023</strong></p>
+            <p>Apple awarded me the Hall of Fame in September 2023 for discovering security issues on their web servers.</p>
+        </div>
+        <div>
+            <h3>Hall of Fame United Nations</h3>
+            <p><strong>Jul 2023</strong></p>
+            <p>United Nations awarded me the Hall of Fame in July 2023 for discovering security issues on their web servers.</p>
+        </div>
+        <div>
+            <h3>Hall of Fame Bug Hunter Kaskus</h3>
+            <p><strong>Nov 2022</strong></p>
+            <p>Kaskus awarded me the Hall of Fame in November 2022 for discovering a vulnerability.</p>
+        </div>
+        <div>
+            <h3>Hall of Fame Bug Hunter Google</h3>
+            <p><strong>Okt 2022</strong></p>
+            <p>Google awarded me the Hall of Fame in October 2022 for discovering a vulnerability.</p>
+        </div>
+        <div>
+            <h3>Hall of Fame Bug Hunter Vidio (Platform Video Streaming)</h3>
+            <p><strong>Okt 2022</strong></p>
+            <p>Vidio awarded me the Hall of Fame in October 2022 for discovering a vulnerability.</p>
+        </div>
+    </div>
+
+    <div class="content" id="contact">
+        <h2>Kontak</h2>
+        <p>Untuk informasi lebih lanjut atau kolaborasi, silakan hubungi saya melalui:</p>
+        <p>Email: <a href="mailto:rifai@example.com">nandorejal@gmail.com</a></p>
+        <div class="social-media">
+            <a href="https://linkedin.com/in/rnando" target="_blank">LinkedIn</a> |
+            <a href="https://github.com/RNando1337" target="_blank">GitHub</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Rifa'i Rejal Maynando. All rights reserved.</p>
+    </footer>
+</body>
+</html>
