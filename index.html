@@ -1,210 +1,920 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifa'i Rejal Maynando - Personal Website</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Rifa'i Rejal Maynando - Fullstack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #fff;
-            color: #333;
+            box-sizing: border-box;
         }
 
-        header {
-            background-color: #fff;
-            color: #333;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0A0A0A;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* WebGL Canvas */
+        #webgl-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* Outline Text */
+        .outline-text {
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
+            text-stroke: 2px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Typography */
+        .hero-title {
+            font-size: clamp(3.5rem, 11vw, 9rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+        }
+
+        /* Pill Badge */
+        .pill-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #A855F7;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Floating Orb */
+        .floating-orb {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #A855F7, #EC4899);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+        }
+
+        .floating-orb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
+        }
+
+        /* Border Left Accent */
+        .border-left-accent {
+            border-left: 3px solid #A855F7;
+            padding-left: 1.5rem;
+        }
+
+        /* Marquee Animation */
+        .marquee {
+            background: #A855F7;
+            padding: 2rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            color: #0A0A0A;
+            padding: 0 3rem;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Project Cards */
+        .project-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 2rem 0;
+        }
+
+        .project-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .project-card {
+            min-width: 420px;
+            height: 520px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.4);
+        }
+
+        .project-card-1 {
+            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);
+        }
+
+        .project-card-2 {
+            background: linear-gradient(135deg, #059669 0%, #06b6d4 100%);
+        }
+
+        .project-card-3 {
+            background: linear-gradient(135deg, #dc2626 0%, #f97316 100%);
+        }
+
+        .project-card-4 {
+            background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+        }
+
+        /* Liquid Effect */
+        .liquid-bg {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1), transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.08), transparent 50%);
+            animation: liquid-flow 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes liquid-flow {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(10%, 10%) rotate(180deg); }
+        }
+
+        /* Badge */
+        .badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-purple {
+            background: rgba(168, 85, 247, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-cyan {
+            background: rgba(6, 182, 212, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Stats Card */
+        .stats-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Social Icons */
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .social-icon:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: #A855F7;
+            transform: translateY(-5px);
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-delay-1 { animation-delay: 0.2s; }
+        .fade-in-delay-2 { animation-delay: 0.4s; }
+        .fade-in-delay-3 { animation-delay: 0.6s; }
+
+        /* Nav Arrow */
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: #A855F7;
+        }
+
+        /* Explore Button */
+        .explore-btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: white;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .explore-btn:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: #A855F7;
+            transform: translateY(-2px);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
             text-align: center;
-            padding: 50px 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
-        header h1 {
-            font-size: 3em;
-            font-weight: 700;
-            margin: 0;
+        .skill-item:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-5px);
         }
 
-        header nav {
-            margin-top: 20px;
+        /* CVE Badge */
+        .cve-badge {
+            background: linear-gradient(135deg, #dc2626, #f97316);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-size: 0.875rem;
         }
 
-        header nav a {
-            color: #333;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 400;
-            font-size: 1.2em;
-            transition: color 0.3s;
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2rem;
+            border-left: 1px solid rgba(168, 85, 247, 0.3);
         }
 
-        header nav a:hover {
-            color: #ff6347;
+        .mobile-menu.active {
+            right: 0;
         }
 
-        .content {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 0 20px;
-            line-height: 1.6;
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        .content h2 {
-            font-size: 2.5em;
-            font-weight: 700;
-            margin: 50px 0 20px;
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
         }
 
-        .content p, .content ul {
-            font-size: 1.2em;
-            margin: 20px 0;
+        .menu-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .content ul {
-            padding-left: 20px;
+        .menu-item:hover {
+            padding-left: 1rem;
+            color: #A855F7;
         }
 
-        .content ul li {
-            margin: 10px 0;
+        .menu-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: auto;
+            margin-bottom: 2rem;
         }
 
-        footer {
-            background-color: #fff;
-            color: #333;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 50px;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        .social-media a {
-            color: #333;
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 1.5em;
-            transition: color 0.3s;
-        }
-
-        .social-media a:hover {
-            color: #ff6347;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5em;
-            }
-
-            header nav a {
-                font-size: 1em;
-            }
-
-            .content h2 {
-                font-size: 2em;
-            }
-
-            .content p, .content ul {
-                font-size: 1em;
-            }
+        .menu-close:hover {
+            background: rgba(168, 85, 247, 0.3);
+            transform: rotate(90deg);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Rifa'i Rejal Maynando</h1>
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="menu-close" onclick="toggleMenu()">
+            <span class="text-white text-2xl">×</span>
+        </div>
+        
+        <div class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Navigation</h3>
+            <p class="text-gray-400 text-sm">Explore my work & expertise</p>
+        </div>
+
         <nav>
-            <a href="#about">Tentang</a>
-            <a href="#experience">Pengalaman</a>
-            <a href="#education">Pendidikan</a>
-            <a href="#awards">Penghargaan</a>
-            <a href="#contact">Kontak</a>
+            <div class="menu-item" onclick="scrollToSection('.hero-section')">
+                <div class="text-xl font-semibold">Home</div>
+                <div class="text-sm text-gray-400">Back to top</div>
+            </div>
+            <div class="menu-item" onclick="scrollToSection('.works-section')">
+                <div class="text-xl font-semibold">Projects</div>
+                <div class="text-sm text-gray-400">Featured works</div>
+            </div>
+            <div class="menu-item" onclick="scrollToSection('.py-24.px-8')">
+                <div class="text-xl font-semibold">Skills</div>
+                <div class="text-sm text-gray-400">Technical expertise</div>
+            </div>
+            <div class="menu-item" onclick="window.open('mailto:nandorejal@gmail.com', '_blank')">
+                <div class="text-xl font-semibold">Contact</div>
+                <div class="text-sm text-gray-400">Get in touch</div>
+            </div>
+            <div class="menu-item" onclick="window.open('https://linkedin.com/in/rnando', '_blank')">
+                <div class="text-xl font-semibold">LinkedIn</div>
+                <div class="text-sm text-gray-400">Connect with me</div>
+            </div>
         </nav>
-    </header>
 
-    <div class="content" id="about">
-        <h2>Tentang Saya</h2>
-        <p>Saya adalah seorang penetration tester dengan pengalaman dalam pengujian keamanan aplikasi web dan jaringan. Selain itu, saya juga memiliki minat besar dalam pengembangan web dan teknologi terkini.</p>
-    </div>
-
-    <div class="content" id="experience">
-        <h2>Pengalaman</h2>
-        <div>
-            <h3>Laravel Developer - PT. Dinustek - Purwawaktu</h3>
-            <p><strong>Mar 2022 - Saat ini</strong> | Semarang, Jawa Tengah, Indonesia</p>
-            <ul>
-                <li>Mengembangkan aplikasi web "Regina" untuk perusahaan outsourcing menggunakan Laravel dan Vue.js</li>
-                <li>Berkontribusi dalam pengembangan aplikasi web "Digitepp" untuk membantu peninjau etika dalam proses penelitian</li>
-                <li>Mengembangkan aplikasi web "Sikudim" untuk sistem keuangan universitas</li>
-                <li>Mengembangkan Learning Management System untuk Pemkab Cilacap</li>
-                <li>Membuat boilerplate untuk pengembangan aplikasi web yang efisien</li>
-                <li>Mengembangkan SOP untuk Security Assessment yang mengurangi bug keamanan sebesar 70%</li>
-            </ul>
+        <div class="mt-12 pt-8 border-t border-gray-800">
+            <p class="text-sm text-gray-500">© 2025 Rifa'i Rejal Maynando</p>
         </div>
     </div>
 
-    <div class="content" id="education">
-        <h2>Pendidikan</h2>
-        <div>
-            <h3>Universitas Dian Nuswantoro</h3>
-            <p><strong>Bachelor's degree, Teknologi Informasi</strong> | Sep 2021 - Nov 2023 | IPK: 3.80</p>
-            <p>Keahlian: Pengembangan Database, Pemrograman Berorientasi Objek (OOP), Pengembangan Software</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <canvas id="webgl-canvas"></canvas>
+        
+        <!-- Navigation -->
+        <div class="fixed top-0 left-0 right-0 z-50 px-8 py-6 flex justify-between items-center">
+            <div class="glass px-6 py-3 rounded-full fade-in">
+                <span class="text-white font-bold tracking-wider">NANDO<span class="text-purple-400">.DEV</span></span>
+            </div>
+            <div class="floating-orb fade-in-delay-1" onclick="toggleMenu()">
+                <div class="flex flex-col gap-1">
+                    <div class="w-5 h-0.5 bg-white"></div>
+                    <div class="w-5 h-0.5 bg-white"></div>
+                    <div class="w-5 h-0.5 bg-white"></div>
+                </div>
+            </div>
         </div>
-        <div>
-            <h3>Universitas Dian Nuswantoro</h3>
-            <p><strong>Associate's degree, Teknologi Informasi</strong> | 2018 - 2021 | IPK: 3.83</p>
-            <p>Keahlian: Pengembangan Database, Pemrograman Berorientasi Objek (OOP), Pengembangan Software</p>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 w-full px-8 md:px-16 lg:px-24">
+            <div class="max-w-7xl mx-auto">
+                <div class="pill-badge mb-8 fade-in">
+                    ◆ FULLSTACK DEVELOPER / BUG HUNTER
+                </div>
+                
+                <h1 class="hero-title fade-in-delay-1">
+                    <div class="text-white">SECURE</div>
+                    <div class="outline-text">DEVELOPMENT</div>
+                </h1>
+
+                <div class="mt-12 max-w-2xl fade-in-delay-2">
+                    <p class="border-left-accent text-gray-300 text-lg leading-relaxed">
+                        Building sophisticated web applications with Laravel, Vue.js, and modern tech stack. Specialized in security assessment and vulnerability discovery. Published CVE researcher with 70% reduction in security vulnerabilities.
+                    </p>
+                </div>
+
+                <div class="mt-12 flex gap-4 flex-wrap fade-in-delay-3">
+                    <button class="explore-btn" onclick="document.querySelector('.works-section').scrollIntoView({behavior: 'smooth'})">
+                        VIEW PROJECTS
+                        <span>↓</span>
+                    </button>
+                    <button class="explore-btn" onclick="window.open('https://linkedin.com/in/rnando', '_blank')">
+                        CONNECT
+                        <span>→</span>
+                    </button>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 fade-in-delay-3">
+                    <div class="stats-card">
+                        <div class="text-4xl font-bold text-purple-400 mb-2">3+</div>
+                        <div class="text-sm text-gray-400 uppercase tracking-wide">Years Experience</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="text-4xl font-bold text-purple-400 mb-2">10+</div>
+                        <div class="text-sm text-gray-400 uppercase tracking-wide">Projects Delivered</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="text-4xl font-bold text-purple-400 mb-2">2</div>
+                        <div class="text-sm text-gray-400 uppercase tracking-wide">CVEs Published</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="text-4xl font-bold text-purple-400 mb-2">70%</div>
+                        <div class="text-sm text-gray-400 uppercase tracking-wide">Bug Reduction</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <h3>SMA Negeri 1 Blora</h3>
-            <p><strong>IPS</strong> | 2015 - 2018</p>
+    </section>
+
+    <!-- Selected Works Section -->
+    <section class="works-section py-24 px-8 md:px-16 lg:px-24 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between mb-12 flex-wrap gap-4">
+                <h2 class="text-5xl md:text-7xl font-bold">
+                    Featured <span class="text-purple-400 italic">Projects</span>
+                </h2>
+                <div class="flex gap-4">
+                    <button class="nav-arrow" onclick="scrollProjects(-1)">
+                        <span class="text-2xl">←</span>
+                    </button>
+                    <button class="nav-arrow" onclick="scrollProjects(1)">
+                        <span class="text-2xl">→</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-slider" id="projectSlider">
+                <!-- Merdeka Sehat -->
+                <div class="project-card project-card-1">
+                    <div class="liquid-bg"></div>
+                    <div>
+                        <div class="mb-4">
+                            <span class="badge badge-purple">2024</span>
+                            <span class="badge badge-purple">Laravel</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3">Merdeka Sehat</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Medicine inventory system with stock-in, stock-out, and opname features for PT. Merdeka Copper Gold mining operations.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">Laravel</span>
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">jQuery</span>
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">MySQL</span>
+                    </div>
+                </div>
+
+                <!-- Regina -->
+                <div class="project-card project-card-2">
+                    <div class="liquid-bg"></div>
+                    <div>
+                        <div class="mb-4">
+                            <span class="badge badge-cyan">2022-2024</span>
+                            <span class="badge badge-cyan">Fullstack</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3">Regina System</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Comprehensive employee and mitra management system for outsourcing company operations and workforce coordination.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">Laravel</span>
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">Vue.js</span>
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">PostgreSQL</span>
+                    </div>
+                </div>
+
+                <!-- E-Contractor -->
+                <div class="project-card project-card-3">
+                    <div class="liquid-bg"></div>
+                    <div>
+                        <div class="mb-4">
+                            <span class="badge badge-purple">2024</span>
+                            <span class="badge badge-purple">Enterprise</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3">E-Contractor</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Contractor management with SIMPER, mine permits, and induction modules for mining operations employee tracking.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">Laravel</span>
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">jQuery</span>
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">API</span>
+                    </div>
+                </div>
+
+                <!-- Digitepp -->
+                <div class="project-card project-card-4">
+                    <div class="liquid-bg"></div>
+                    <div>
+                        <div class="mb-4">
+                            <span class="badge badge-purple">2022-2024</span>
+                            <span class="badge badge-purple">Research</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3">Digitepp</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Ethics review platform for research protocols and proposals, streamlining academic ethics assessment processes.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">Laravel</span>
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">Vue.js</span>
+                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">REST API</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Expertise -->
+    <section class="py-24 px-8 md:px-16 lg:px-24 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12">
+                Technical <span class="text-purple-400 italic">Arsenal</span>
+            </h2>
+
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🐘</div>
+                    <div class="font-semibold">PHP</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🎨</div>
+                    <div class="font-semibold">Laravel</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">💚</div>
+                    <div class="font-semibold">Vue.js</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <div class="font-semibold">JavaScript</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🔷</div>
+                    <div class="font-semibold">jQuery</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">☕</div>
+                    <div class="font-semibold">Java</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🐍</div>
+                    <div class="font-semibold">Python</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🗄️</div>
+                    <div class="font-semibold">MySQL</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🔧</div>
+                    <div class="font-semibold">Git</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🛡️</div>
+                    <div class="font-semibold">Pen Testing</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🔥</div>
+                    <div class="font-semibold">CodeIgniter</div>
+                </div>
+                <div class="skill-item">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <div class="font-semibold">REST API</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bug Hunting Achievement -->
+    <section class="py-24 px-8 md:px-16 lg:px-24 relative z-10 bg-gradient-to-b from-transparent to-purple-950/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass p-12 rounded-3xl">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-5xl">🎯</span>
+                    <h2 class="text-4xl md:text-5xl font-bold">
+                        Bug Hunter <span class="text-purple-400">Excellence</span>
+                    </h2>
+                </div>
+                <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                    Independent security researcher conducting assessments for industry giants. Successfully discovered and responsibly disclosed vulnerabilities, contributing to a safer digital ecosystem.
+                </p>
+                <div class="flex flex-wrap gap-4 mb-8">
+                    <div class="cve-badge">CVE-2024-40797</div>
+                    <div class="cve-badge">CVE-2025-8364</div>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="pill-badge">Google</span>
+                    <span class="pill-badge">Apple</span>
+                    <span class="pill-badge">Opera</span>
+                    <span class="pill-badge">Mozilla</span>
+                    <span class="pill-badge">Kaskus</span>
+                    <span class="pill-badge">Vidio</span>
+                </div>
+                <div class="mt-8 p-6 bg-purple-900/20 rounded-2xl border border-purple-500/30">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-2xl">🏆</span>
+                        <h3 class="text-xl font-bold">Security Impact</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Developed comprehensive Security Assessment SOPs that achieved a <span class="text-purple-400 font-bold">70% reduction</span> in security vulnerabilities across production applications.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-content">
+            <span class="marquee-text">SECURE CODE • ETHICAL HACKING • FULLSTACK MASTERY • </span>
+            <span class="marquee-text">SECURE CODE • ETHICAL HACKING • FULLSTACK MASTERY • </span>
         </div>
     </div>
 
-    <div class="content" id="awards">
-        <h2>Gelar Kehormatan dan Penghargaan</h2>
-        <div>
-            <h3>Hall of Fame Web Server Security Apple</h3>
-            <p><strong>Sep 2023</strong></p>
-            <p>Apple awarded me the Hall of Fame in September 2023 for discovering security issues on their web servers.</p>
-        </div>
-        <div>
-            <h3>Hall of Fame United Nations</h3>
-            <p><strong>Jul 2023</strong></p>
-            <p>United Nations awarded me the Hall of Fame in July 2023 for discovering security issues on their web servers.</p>
-        </div>
-        <div>
-            <h3>Hall of Fame Bug Hunter Kaskus</h3>
-            <p><strong>Nov 2022</strong></p>
-            <p>Kaskus awarded me the Hall of Fame in November 2022 for discovering a vulnerability.</p>
-        </div>
-        <div>
-            <h3>Hall of Fame Bug Hunter Google</h3>
-            <p><strong>Okt 2022</strong></p>
-            <p>Google awarded me the Hall of Fame in October 2022 for discovering a vulnerability.</p>
-        </div>
-        <div>
-            <h3>Hall of Fame Bug Hunter Vidio (Platform Video Streaming)</h3>
-            <p><strong>Okt 2022</strong></p>
-            <p>Vidio awarded me the Hall of Fame in October 2022 for discovering a vulnerability.</p>
-        </div>
-    </div>
+    <!-- Footer / CTA -->
+    <footer class="py-24 px-8 md:px-16 lg:px-24 relative z-10">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="text-purple-400 text-sm tracking-widest uppercase mb-4">
+                LET'S BUILD SOMETHING SECURE
+            </div>
+            
+            <h2 class="text-4xl md:text-6xl font-bold mb-8">
+                nandorejal@gmail.com
+            </h2>
 
-    <div class="content" id="contact">
-        <h2>Kontak</h2>
-        <p>Untuk informasi lebih lanjut atau kolaborasi, silakan hubungi saya melalui:</p>
-        <p>Email: <a href="mailto:rifai@example.com">nandorejal@gmail.com</a></p>
-        <div class="social-media">
-            <a href="https://linkedin.com/in/rnando" target="_blank">LinkedIn</a> |
-            <a href="https://github.com/RNando1337" target="_blank">GitHub</a>
-        </div>
-    </div>
+            <div class="text-gray-400 mb-12">
+                <span class="text-lg">+62 822 7152 027</span>
+            </div>
 
-    <footer>
-        <p>&copy; 2024 Rifa'i Rejal Maynando. All rights reserved.</p>
+            <div class="flex justify-center gap-6 mb-16">
+                <a href="https://linkedin.com/in/rnando" target="_blank" class="social-icon">
+                    <span class="text-sm font-bold">LN</span>
+                </a>
+                <a href="mailto:nandorejal@gmail.com" class="social-icon">
+                    <span class="text-sm font-bold">EM</span>
+                </a>
+                <a href="https://github.com/rnando" target="_blank" class="social-icon">
+                    <span class="text-sm font-bold">GH</span>
+                </a>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm pt-8 border-t border-gray-800">
+                <div>© 2025 Rifa'i Rejal Maynando</div>
+                <div>Blora • Semarang • Indonesia</div>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // WebGL Background
+        const canvas = document.getElementById('webgl-canvas');
+        const gl = canvas.getContext('webgl');
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let time = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            if (gl) gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        if (gl) {
+            const vertexShaderSource = `
+                attribute vec2 position;
+                void main() {
+                    gl_Position = vec4(position, 0.0, 1.0);
+                }
+            `;
+
+            const fragmentShaderSource = `
+                precision mediump float;
+                uniform vec2 resolution;
+                uniform float time;
+                uniform vec2 mouse;
+
+                void main() {
+                    vec2 uv = gl_FragCoord.xy / resolution.xy;
+                    vec2 center = vec2(0.5, 0.5);
+                    
+                    float dist = distance(uv, center + mouse * 0.1);
+                    float angle = atan(uv.y - center.y, uv.x - center.x);
+                    
+                    vec3 color1 = vec3(0.66, 0.33, 0.97);
+                    vec3 color2 = vec3(0.93, 0.28, 0.58);
+                    vec3 color3 = vec3(0.02, 0.73, 0.83);
+                    
+                    float wave = sin(dist * 10.0 - time * 0.5 + angle * 2.0) * 0.5 + 0.5;
+                    float wave2 = cos(dist * 8.0 + time * 0.3) * 0.5 + 0.5;
+                    
+                    vec3 color = mix(color1, color2, wave);
+                    color = mix(color, color3, wave2 * 0.3);
+                    
+                    float vignette = smoothstep(1.0, 0.3, dist);
+                    color *= vignette * 0.3;
+                    
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `;
+
+            function createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                return shader;
+            }
+
+            const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+            const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+
+            const program = gl.createProgram();
+            gl.attachShader(program, vertexShader);
+            gl.attachShader(program, fragmentShader);
+            gl.linkProgram(program);
+            gl.useProgram(program);
+
+            const vertices = new Float32Array([
+                -1, -1,
+                1, -1,
+                -1, 1,
+                1, 1
+            ]);
+
+            const buffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+            gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+            const positionLocation = gl.getAttribLocation(program, 'position');
+            gl.enableVertexAttribArray(positionLocation);
+            gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+            const resolutionLocation = gl.getUniformLocation(program, 'resolution');
+            const timeLocation = gl.getUniformLocation(program, 'time');
+            const mouseLocation = gl.getUniformLocation(program, 'mouse');
+
+            function render() {
+                time += 0.01;
+                
+                gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+                gl.uniform1f(timeLocation, time);
+                gl.uniform2f(mouseLocation, mouseX, mouseY);
+                
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                requestAnimationFrame(render);
+            }
+
+            render();
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        function scrollProjects(direction) {
+            const slider = document.getElementById('projectSlider');
+            const scrollAmount = 450;
+            slider.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function scrollToSection(selector) {
+            const section = document.querySelector(selector);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                toggleMenu();
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-section > div:last-child');
+            if (heroContent && scrolled < window.innerHeight) {
+                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
+            }
+        });
+    </script>
 </body>
 </html>
